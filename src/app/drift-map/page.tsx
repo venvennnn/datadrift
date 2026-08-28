@@ -39,7 +39,7 @@ export default function DriftMapPage() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <p className="text-xs uppercase tracking-[0.22em] text-signal">Cross-functional view</p>
+      <p className="text-xs uppercase tracking-[0.12em] text-signal">Cross-functional view</p>
       <h1 className="serif mt-3 text-4xl text-cream">Organisational drift map</h1>
       <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
         This analyses disagreements between teams and sources — not rank of individual employees. The goal is recurring drift declining, not a high count of findings.
@@ -47,15 +47,15 @@ export default function DriftMapPage() {
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Personal trackers cited</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Personal trackers cited</div>
           <div className="serif mt-2 text-4xl">{sources.tracker}</div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Official dashboards cited</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Official dashboards cited</div>
           <div className="serif mt-2 text-4xl">{sources.dashboard}</div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Source unstated</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Source unstated</div>
           <div className="serif mt-2 text-4xl">{sources.unstated}</div>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function DriftMapPage() {
           <Link
             key={pair.teams.join("-")}
             href={`/inbox/${pair.findingId}`}
-            className="panel block p-6 hover:border-signal/30"
+            className="panel block p-6 hover:bg-ink-2"
           >
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="serif text-2xl text-cream">

@@ -32,7 +32,7 @@ export default async function MetricPage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href="/metrics" className="text-xs uppercase tracking-[0.18em] text-signal">
+      <Link href="/metrics" className="text-xs uppercase tracking-[0.12em] text-signal">
         ← Catalogue
       </Link>
       <h1 className="serif mt-4 text-4xl text-cream">{metric.canonicalName}</h1>
@@ -40,17 +40,17 @@ export default async function MetricPage({
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Canonical July value</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Canonical July value</div>
           <div className="serif mt-2 text-4xl">{formatValue(latest?.value ?? null, metric.unit)}</div>
           <div className="mt-2 text-xs text-muted">{metric.sourceView}</div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Owner</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Owner</div>
           <div className="mt-2 text-lg text-cream">{owner?.name}</div>
           <div className="mt-2 text-xs text-muted">{owner?.title}</div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Freshness</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Freshness</div>
           <div className="mt-2 text-sm leading-6 text-cream">{metric.refreshCadence}</div>
           <div className="mt-2 text-xs text-muted">{metric.dataLatency}</div>
         </div>
@@ -79,7 +79,7 @@ export default async function MetricPage({
         <h2 className="serif text-2xl">Definition versions</h2>
         <div className="mt-4 space-y-3">
           {versions.map((version) => (
-            <div key={version.id} className="rounded-2xl border border-line p-4">
+            <div key={version.id} className="rounded-lg border border-line p-4">
               <div className="text-xs text-muted">
                 {formatDate(version.effectiveFrom)} – {version.effectiveTo ? formatDate(version.effectiveTo) : "present"}
               </div>
@@ -98,7 +98,7 @@ export default async function MetricPage({
         </p>
         <div className="mt-4 space-y-3">
           {templates.map((template) => (
-            <div key={template.id} className="rounded-2xl border border-line p-4">
+            <div key={template.id} className="rounded-lg border border-line p-4">
               <div className="flex items-center justify-between gap-3">
                 <div className="text-sm text-cream">{template.label}</div>
                 {template.isCanonical && <span className="text-xs text-signal">Canonical</span>}
@@ -132,7 +132,7 @@ export default async function MetricPage({
             .filter((finding) => finding.driftTypes.length > 0)
             .slice(0, 8)
             .map((finding) => (
-              <Link key={finding.id} href={`/inbox/${finding.id}`} className="block rounded-2xl border border-line p-4 hover:border-signal/30">
+              <Link key={finding.id} href={`/inbox/${finding.id}`} className="block rounded-lg border border-line p-4 hover:bg-ink-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <SeverityBadge severity={finding.severity} />
                   {finding.driftTypes.map((type) => (

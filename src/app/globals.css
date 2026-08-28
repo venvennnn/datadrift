@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #0c100e;
-  --ink-2: #121714;
-  --panel: #171d19;
-  --panel-2: #1d2520;
-  --line: rgba(232, 224, 204, 0.1);
-  --cream: #efe7d4;
-  --muted: #9aa394;
-  --signal: #9fd6b4;
-  --signal-strong: #6fbf90;
-  --warn: #e2b07a;
-  --alert: #d9896c;
-  --info: #8fb8c9;
-  --good: #7ec89a;
+  --ink: #171717;
+  --ink-2: #f7f7f7;
+  --panel: #ffffff;
+  --panel-2: #fafafa;
+  --line: #e8e8e8;
+  --cream: #171717;
+  --muted: #737373;
+  --signal: #171717;
+  --signal-strong: #000000;
+  --warn: #9a6700;
+  --alert: #b42318;
+  --info: #3b5bdb;
+  --good: #0f7a4a;
 }
 
 @theme inline {
@@ -37,18 +37,13 @@
 
 html,
 body {
-  background: var(--ink);
+  background: #ffffff;
   color: var(--cream);
   min-height: 100%;
+  color-scheme: light;
 }
 
 body {
-  background-image:
-    radial-gradient(1200px 500px at 10% -10%, rgba(159, 214, 180, 0.08), transparent 55%),
-    radial-gradient(900px 400px at 100% 0%, rgba(226, 176, 122, 0.05), transparent 50%),
-    linear-gradient(rgba(239, 231, 212, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(239, 231, 212, 0.025) 1px, transparent 1px);
-  background-size: auto, auto, 48px 48px, 48px 48px;
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -61,14 +56,59 @@ a {
 }
 
 .panel {
-  background: color-mix(in srgb, var(--panel) 88%, transparent);
+  background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: 1.25rem;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: #ffffff;
+  padding: 0.55rem 1.15rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--signal-strong);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--cream);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--cream);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.field:focus {
+  border-color: #cfcfcf;
 }
 
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(239, 231, 212, 0.2) transparent;
+  scrollbar-color: #d4d4d4 transparent;
 }

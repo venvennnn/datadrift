@@ -43,12 +43,12 @@ export function AskClient() {
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
           rows={3}
-          className="w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm text-cream outline-none"
+          className="field"
         />
         <button
           type="submit"
           disabled={pending}
-          className="mt-4 rounded-full bg-signal px-5 py-2.5 text-sm font-medium text-ink disabled:opacity-60"
+          className="btn-primary mt-4"
         >
           {pending ? "Retrieving evidence…" : "Ask with evidence"}
         </button>
@@ -70,10 +70,10 @@ export function AskClient() {
       </div>
       {answer && (
         <article className="panel mt-8 p-6">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Answer</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Answer</div>
           <div className="mt-4 whitespace-pre-wrap text-sm leading-7 text-cream">{answer.answer}</div>
           <div className="mt-6">
-            <div className="text-xs uppercase tracking-[0.16em] text-muted">Evidence</div>
+            <div className="text-xs uppercase tracking-[0.12em] text-muted">Evidence</div>
             <div className="mt-3 flex flex-col gap-2">
               {answer.citations.map((citation) => (
                 <Link key={`${citation.kind}-${citation.id}`} href={citation.href} className="text-sm text-signal">

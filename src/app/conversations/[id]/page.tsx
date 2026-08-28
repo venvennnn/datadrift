@@ -32,10 +32,10 @@ export default async function ConversationReportPage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href="/conversations" className="text-xs uppercase tracking-[0.18em] text-signal">
+      <Link href="/conversations" className="text-xs uppercase tracking-[0.12em] text-signal">
         ← Conversations
       </Link>
-      <div className="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
+      <div className="mt-4 text-xs uppercase tracking-[0.12em] text-muted">
         {sourceLabel[conversation.sourceType]} · {conversation.accessPolicy} · notified: {conversation.notified ? "yes" : "no"}
       </div>
       <h1 className="serif mt-3 text-4xl text-cream">{conversation.title}</h1>
@@ -56,7 +56,7 @@ export default async function ConversationReportPage({
         <h2 className="serif text-2xl">Claims</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-xs uppercase tracking-[0.14em] text-muted">
+            <thead className="text-xs uppercase tracking-[0.12em] text-muted">
               <tr>
                 <th className="py-2 pr-4">Speaker</th>
                 <th className="py-2 pr-4">Metric</th>
@@ -105,7 +105,7 @@ export default async function ConversationReportPage({
         <h2 className="serif text-2xl">Discrepancies and follow-ups</h2>
         <div className="mt-4 space-y-3">
           {unresolved.map((finding) => (
-            <Link key={finding.id} href={`/inbox/${finding.id}`} className="block rounded-2xl border border-line p-4 hover:border-signal/30">
+            <Link key={finding.id} href={`/inbox/${finding.id}`} className="block rounded-lg border border-line p-4 hover:bg-ink-2">
               <div className="flex flex-wrap items-center gap-2">
                 <SeverityBadge severity={finding.severity} />
                 {finding.driftTypes.map((type) => (
@@ -133,7 +133,7 @@ export default async function ConversationReportPage({
             return (
               <div
                 key={turn.index}
-                className={`rounded-2xl border p-4 ${turnClaims.length ? "border-warn/30 bg-warn/5" : "border-line bg-ink-2/50"}`}
+                className={`rounded-lg border p-4 ${turnClaims.length ? "border-line bg-ink-2" : "border-line bg-white"}`}
               >
                 <div className="text-xs text-muted">
                   {turn.speakerName}
@@ -153,7 +153,7 @@ export default async function ConversationReportPage({
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="panel p-5">
-      <div className="text-xs uppercase tracking-[0.16em] text-muted">{label}</div>
+      <div className="text-xs uppercase tracking-[0.12em] text-muted">{label}</div>
       <div className="serif mt-2 text-3xl">{value}</div>
     </div>
   );

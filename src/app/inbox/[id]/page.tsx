@@ -27,7 +27,7 @@ export default async function FindingPage({
 
   return (
     <div className="mx-auto max-w-5xl">
-      <Link href="/inbox" className="text-xs uppercase tracking-[0.18em] text-signal">
+      <Link href="/inbox" className="text-xs uppercase tracking-[0.12em] text-signal">
         ← Alignment Inbox
       </Link>
       <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -44,14 +44,14 @@ export default async function FindingPage({
 
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Quoted</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Quoted</div>
           <div className="serif mt-2 text-3xl">
             {formatValue(primary?.quotedValue, primary?.unit ?? metric?.unit)}
           </div>
           <div className="mt-2 text-xs text-muted">{primary?.speakerName}</div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Trusted value</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Trusted value</div>
           <div className="serif mt-2 text-3xl">
             {formatValue(verification?.trustedValue, metric?.unit)}
           </div>
@@ -60,7 +60,7 @@ export default async function FindingPage({
           </div>
         </div>
         <div className="panel p-5">
-          <div className="text-xs uppercase tracking-[0.16em] text-muted">Difference</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-muted">Difference</div>
           <div className="serif mt-2 text-3xl">
             {formatDifference(verification?.difference, metric?.unit)}
           </div>
@@ -74,7 +74,7 @@ export default async function FindingPage({
         <h2 className="serif text-2xl">What was said</h2>
         <div className="mt-4 space-y-3">
           {claims.map((claim) => (
-            <blockquote key={claim.id} className="rounded-2xl border border-line bg-ink-2/70 p-4">
+            <blockquote key={claim.id} className="rounded-lg border border-line bg-ink-2 p-4">
               <div className="text-xs text-muted">
                 {claim.speakerName}
                 {claim.team ? ` · ${claim.team}` : ""} · extraction {(claim.extractionConfidence * 100).toFixed(0)}%
@@ -97,7 +97,7 @@ export default async function FindingPage({
         </p>
         <div className="mt-4 overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <thead className="text-xs uppercase tracking-[0.14em] text-muted">
+            <thead className="text-xs uppercase tracking-[0.12em] text-muted">
               <tr>
                 <th className="py-2 pr-4">Template</th>
                 <th className="py-2 pr-4">Value</th>
@@ -151,7 +151,7 @@ export default async function FindingPage({
           {resolutions.length > 0 && (
             <div className="mt-6 space-y-3">
               {resolutions.map((resolution) => (
-                <div key={resolution.id} className="rounded-2xl border border-line p-3 text-sm">
+                <div key={resolution.id} className="rounded-lg border border-line p-3 text-sm">
                   <div className="text-xs text-muted">
                     {getPerson(resolution.reviewerId)?.name} · {formatDateTime(resolution.resolvedAt)}
                   </div>

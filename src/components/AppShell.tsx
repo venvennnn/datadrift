@@ -28,10 +28,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen">
-      <aside className="fixed inset-y-0 left-0 z-20 hidden w-64 border-r border-line bg-ink-2/90 px-5 py-6 lg:flex lg:flex-col">
+    <div className="min-h-screen bg-white">
+      <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 border-r border-line bg-white px-5 py-6 lg:flex lg:flex-col">
         <Link href="/" className="block">
-          <div className="text-[11px] tracking-[0.22em] uppercase text-signal">
+          <div className="text-[11px] tracking-[0.12em] uppercase text-muted">
             Alignment layer
           </div>
           <div className="serif mt-2 text-2xl leading-none text-cream">
@@ -41,7 +41,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             Catch metric misalignment before it becomes a business decision.
           </p>
         </Link>
-        <nav className="mt-8 flex flex-1 flex-col gap-1">
+        <nav className="mt-8 flex flex-1 flex-col gap-0.5">
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -53,34 +53,34 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition",
+                  "flex items-center gap-3 rounded-md px-2.5 py-2 text-sm transition",
                   active
-                    ? "bg-signal/10 text-cream"
-                    : "text-muted hover:bg-white/5 hover:text-cream",
+                    ? "bg-ink-2 text-cream"
+                    : "text-muted hover:bg-ink-2 hover:text-cream",
                 )}
               >
-                <Icon size={16} className={active ? "text-signal" : "text-muted"} />
+                <Icon size={16} className={active ? "text-cream" : "text-muted"} />
                 {item.label}
               </Link>
             );
           })}
         </nav>
-        <div className="rounded-2xl border border-line bg-panel p-4 text-xs leading-5 text-muted">
-          <div className="mb-2 flex items-center gap-2 text-signal">
+        <div className="rounded-lg border border-line p-4 text-xs leading-5 text-muted">
+          <div className="mb-2 flex items-center gap-2 text-cream">
             <ShieldCheck size={14} />
             Designed not to police people
           </div>
           Authorised sources only. Findings describe alignment issues, not individual accuracy. No employee scores.
         </div>
       </aside>
-      <div className="lg:pl-64">
-        <header className="sticky top-0 z-10 border-b border-line bg-ink/80 px-4 py-3 backdrop-blur-md lg:px-8">
+      <div className="lg:pl-60">
+        <header className="sticky top-0 z-10 border-b border-line bg-white/90 px-4 py-3 backdrop-blur-md lg:px-8">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-xs text-muted">
               Processing authorised meetings and Slack channels only. Transcript excerpts are shown solely to explain a finding.
             </p>
-            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.16em] text-signal">
-              <span className="h-1.5 w-1.5 rounded-full bg-signal" />
+            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-muted">
+              <span className="h-1.5 w-1.5 rounded-full bg-good" />
               Read-only trusted data
             </div>
           </div>

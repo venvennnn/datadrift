@@ -43,12 +43,12 @@ export function ResolveForm({ findingId }: { findingId: string }) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-4">
-      <label className="block text-xs uppercase tracking-[0.16em] text-muted">
+      <label className="block text-xs uppercase tracking-[0.12em] text-muted">
         Human resolution
         <select
           value={resolutionType}
           onChange={(event) => setResolutionType(event.target.value as FindingStatus)}
-          className="mt-2 w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm normal-case tracking-normal text-cream"
+          className="field mt-2 normal-case tracking-normal"
         >
           {options.map((option) => (
             <option key={option} value={option}>
@@ -57,7 +57,7 @@ export function ResolveForm({ findingId }: { findingId: string }) {
           ))}
         </select>
       </label>
-      <label className="block text-xs uppercase tracking-[0.16em] text-muted">
+      <label className="block text-xs uppercase tracking-[0.12em] text-muted">
         Evidence and comment
         <textarea
           required
@@ -65,14 +65,14 @@ export function ResolveForm({ findingId }: { findingId: string }) {
           onChange={(event) => setComment(event.target.value)}
           rows={4}
           placeholder="Explain why this is drift, a valid alternative, or a trusted-source issue."
-          className="mt-2 w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm normal-case tracking-normal text-cream outline-none placeholder:text-muted"
+          className="field mt-2 normal-case tracking-normal"
         />
       </label>
       {error && <p className="text-sm text-alert">{error}</p>}
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-signal px-5 py-2.5 text-sm font-medium text-ink hover:bg-signal-strong disabled:opacity-60"
+        className="btn-primary"
       >
         {pending ? "Recording…" : "Record resolution"}
       </button>

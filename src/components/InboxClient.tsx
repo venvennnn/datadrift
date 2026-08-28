@@ -42,12 +42,12 @@ export function InboxClient({ snapshot }: { snapshot: AppSnapshot }) {
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search claims, teams, causes"
-          className="w-full rounded-2xl border border-line bg-panel px-4 py-3 text-sm text-cream outline-none placeholder:text-muted focus:border-signal/40"
+          className="field"
         />
         <select
           value={severity}
           onChange={(event) => setSeverity(event.target.value as typeof severity)}
-          className="rounded-2xl border border-line bg-panel px-4 py-3 text-sm text-cream"
+          className="field lg:w-48"
         >
           {severities.map((item) => (
             <option key={item} value={item}>
@@ -58,7 +58,7 @@ export function InboxClient({ snapshot }: { snapshot: AppSnapshot }) {
         <select
           value={status}
           onChange={(event) => setStatus(event.target.value as typeof status)}
-          className="rounded-2xl border border-line bg-panel px-4 py-3 text-sm text-cream"
+          className="field lg:w-56"
         >
           {statuses.map((item) => (
             <option key={item} value={item}>
@@ -68,9 +68,9 @@ export function InboxClient({ snapshot }: { snapshot: AppSnapshot }) {
         </select>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-[1.25rem] border border-line">
+      <div className="mt-6 overflow-hidden rounded-lg border border-line">
         <table className="w-full text-left text-sm">
-          <thead className="bg-panel-2 text-xs uppercase tracking-[0.14em] text-muted">
+          <thead className="bg-panel-2 text-xs uppercase tracking-[0.12em] text-muted">
             <tr>
               <th className="px-4 py-3 font-medium">Metric</th>
               <th className="px-4 py-3 font-medium">Quoted vs trusted</th>
