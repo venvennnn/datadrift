@@ -1,0 +1,25 @@
+[2026-08-05 09:00] Elena Vasquez (Executive): Let's start with July origination quality. What was the approval rate?
+
+[2026-08-05 09:01] Priya Shah (Sales): July approval rate was 47%. That's why we are comfortable raising the Malaysia target this quarter.
+
+[2026-08-05 09:02] Daniel Okonkwo (Risk): No, it was 39%. We define approval rate as approved applications divided by submitted applications.
+
+[2026-08-05 09:03] Mei Chen (Finance): The dashboard showed 42% when I pulled it this morning. I used the Credit Ops dashboard.
+
+[2026-08-05 09:04] Priya Shah (Sales): We count approved over qualified leads. That's the number my team uses in the weekly tracker.
+
+[2026-08-05 09:05] Elena Vasquez (Executive): We cannot set a target if we do not know which number is real. Also, Malaysia approval rate dropped to 38% last month according to the regional deck.
+
+[2026-08-05 09:06] Tomik Lee (Malaysia Credit): That 38% is retail only. I think it was around 38%.
+
+[2026-08-05 09:07] Mei Chen (Finance): Monthly disbursement was $12.4 million.
+
+[2026-08-05 09:08] Priya Shah (Sales): We had $14.1 million in July. That is what the Finance tracker in my spreadsheet shows.
+
+[2026-08-05 09:09] Sofia Rahman (Operations): If you include approved but undisbursed facilities it is closer to $13.6 million.
+
+[2026-08-05 09:10] James Liu (Product): Active customers are at 84,000 if you count anyone who logged in.
+
+[2026-08-05 09:11] Mei Chen (Finance): We define active customers as paying customers with an outstanding balance. That is 61,200.
+
+[2026-08-05 09:12] Elena Vasquez (Executive): Analytics, please tell us which figures we should take into the board pack. I do not want another meeting spent reconciling numbers.

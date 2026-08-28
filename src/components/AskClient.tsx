@@ -1,0 +1,89 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import type { AskAnswer } from "@/lib/types";
+
+const suggestions = [
+  "What is the official approval-rate definition?",
+  "Why did Finance and Sales report different numbers?",
+  "Which meeting first introduced the 47% value?",
+  "What was the correct number at the time of the meeting?",
+  "Which metrics create the most confusion?",
+  "Are people avoiding the official dashboard? Why?",
+];
+
+export function AskClient() {
+  const [question, setQuestion] = useState(suggestions[1]);
+  const [answer, setAnswer] = useState<AskAnswer | null>(null);
+  const [pending, setPending] = useState(false);
+
+  async function ask(next: string) {
+    setPending(true);
+    const response = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ question: next }),
+    });
+    const payload = (await response.json()) as AskAnswer;
+    setAnswer(payload);
+    setPending(false);
+  }
+
+  return (
+    <div>
+      <form
+        className="panel p-5"
+        onSubmit={(event) => {
+          event.preventDefault();
+          void ask(question);
+        }}
+      >
+        <textarea
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          rows={3}
+          className="w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm text-cream outline-none"
+        />
+        <button
+          type="submit"
+          disabled={pending}
+          className="mt-4 rounded-full bg-signal px-5 py-2.5 text-sm font-medium text-ink disabled:opacity-60"
+        >
+          {pending ? "Retrieving evidence…" : "Ask with evidence"}
+        </button>
+      </form>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {suggestions.map((item) => (
+          <button
+            key={item}
+            type="button"
+            onClick={() => {
+              setQuestion(item);
+              void ask(item);
+            }}
+            className="rounded-full border border-line px-3 py-1.5 text-left text-xs text-muted hover:text-cream"
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+      {answer && (
+        <article className="panel mt-8 p-6">
+          <div className="text-xs uppercase tracking-[0.16em] text-muted">Answer</div>
+          <div className="mt-4 whitespace-pre-wrap text-sm leading-7 text-cream">{answer.answer}</div>
+          <div className="mt-6">
+            <div className="text-xs uppercase tracking-[0.16em] text-muted">Evidence</div>
+            <div className="mt-3 flex flex-col gap-2">
+              {answer.citations.map((citation) => (
+                <Link key={`${citation.kind}-${citation.id}`} href={citation.href} className="text-sm text-signal">
+                  {citation.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </article>
+      )}
+    </div>
+  );
+}
