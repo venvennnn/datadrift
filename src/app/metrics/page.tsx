@@ -9,7 +9,7 @@ export default function MetricsPage() {
 
   return (
     <div className="mx-auto max-w-5xl">
-      <p className="text-xs uppercase tracking-[0.22em] text-signal">Foundation</p>
+      <p className="text-xs uppercase tracking-[0.12em] text-signal">Foundation</p>
       <h1 className="serif mt-3 text-4xl text-cream">Metric catalogue</h1>
       <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">
         Without this layer the product could compare text against a number without knowing whether it was comparing the correct concepts. Queries run only through registered templates.
@@ -22,7 +22,7 @@ export default function MetricsPage() {
             (finding) => finding.metricId === metric.id && finding.status === "unresolved",
           );
           return (
-            <Link key={metric.id} href={`/metrics/${metric.id}`} className="panel block p-6 hover:border-signal/30">
+            <Link key={metric.id} href={`/metrics/${metric.id}`} className="panel block p-6 hover:bg-ink-2">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <h2 className="serif text-2xl text-cream">{metric.canonicalName}</h2>

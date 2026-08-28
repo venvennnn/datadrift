@@ -9,14 +9,14 @@ import type { ComparisonResult, DriftType, FindingStatus, Severity } from "@/lib
 
 export function SeverityBadge({ severity }: { severity: Severity }) {
   const tone: Record<Severity, string> = {
-    informational: "bg-info/15 text-info",
-    low: "bg-white/8 text-muted",
-    medium: "bg-warn/15 text-warn",
-    high: "bg-alert/15 text-alert",
-    critical: "bg-alert/25 text-alert",
+    informational: "border-line text-muted",
+    low: "border-line text-muted",
+    medium: "border-warn/30 text-warn",
+    high: "border-alert/30 text-alert",
+    critical: "border-alert/40 text-alert",
   };
   return (
-    <span className={cn("rounded-full px-2.5 py-1 text-[11px] font-medium", tone[severity])}>
+    <span className={cn("rounded-full border px-2.5 py-0.5 text-[11px]", tone[severity])}>
       {severityLabel[severity]}
     </span>
   );
@@ -27,8 +27,8 @@ export function StatusBadge({ status }: { status: FindingStatus }) {
   return (
     <span
       className={cn(
-        "rounded-full px-2.5 py-1 text-[11px] font-medium",
-        resolved ? "bg-good/15 text-good" : "bg-white/8 text-cream/80",
+        "rounded-full border px-2.5 py-0.5 text-[11px]",
+        resolved ? "border-good/30 text-good" : "border-line text-muted",
       )}
     >
       {statusLabel[status]}
@@ -38,7 +38,7 @@ export function StatusBadge({ status }: { status: FindingStatus }) {
 
 export function DriftBadge({ type }: { type: DriftType }) {
   return (
-    <span className="rounded-full border border-line px-2.5 py-1 text-[11px] text-cream/80">
+    <span className="rounded-full border border-line px-2.5 py-0.5 text-[11px] text-muted">
       {driftTypeLabel[type]}
     </span>
   );
@@ -47,7 +47,12 @@ export function DriftBadge({ type }: { type: DriftType }) {
 export function ComparisonBadge({ result }: { result: ComparisonResult }) {
   const good = result === "aligned" || result === "approximately_aligned";
   return (
-    <span className={cn("rounded-full px-2.5 py-1 text-[11px]", good ? "bg-good/15 text-good" : "bg-warn/15 text-warn")}>
+    <span
+      className={cn(
+        "rounded-full border px-2.5 py-0.5 text-[11px]",
+        good ? "border-good/30 text-good" : "border-line text-muted",
+      )}
+    >
       {comparisonLabel[result]}
     </span>
   );

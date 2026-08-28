@@ -30,7 +30,7 @@ export function SlackClient() {
       <div className="border-b border-line bg-panel-2 px-5 py-3 text-sm text-cream">#credit-ops · authorised channel</div>
       <div className="space-y-4 p-5">
         {thread.split("\n").map((line) => (
-          <div key={line} className="rounded-2xl bg-ink-2 p-4 text-sm leading-6 text-cream">
+          <div key={line} className="rounded-lg bg-ink-2 p-4 text-sm leading-6 text-cream">
             {line}
           </div>
         ))}
@@ -39,19 +39,19 @@ export function SlackClient() {
             value={question}
             onChange={(event) => setQuestion(event.target.value)}
             rows={3}
-            className="w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm text-cream"
+            className="field"
           />
           <button
             type="submit"
             disabled={pending}
-            className="rounded-full bg-signal px-5 py-2.5 text-sm font-medium text-ink disabled:opacity-60"
+            className="btn-primary"
           >
             {pending ? "Verifying…" : "Invoke @DataDrift"}
           </button>
         </form>
         {reply && (
-          <div className="rounded-2xl border border-signal/30 bg-signal/10 p-4">
-            <div className="text-xs uppercase tracking-[0.16em] text-signal">DataDrift · in-thread, not a public correction</div>
+          <div className="rounded-lg border border-line bg-ink-2 p-4">
+            <div className="text-xs uppercase tracking-[0.12em] text-muted">DataDrift · in-thread, not a public correction</div>
             <p className="mt-3 text-sm leading-6 text-cream">{reply.reply}</p>
           </div>
         )}

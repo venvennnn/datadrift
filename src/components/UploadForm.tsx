@@ -37,15 +37,15 @@ export function UploadForm() {
 
   return (
     <form onSubmit={onSubmit} className="panel mt-8 space-y-4 p-6">
-      <label className="block text-xs uppercase tracking-[0.16em] text-muted">
+      <label className="block text-xs uppercase tracking-[0.12em] text-muted">
         Meeting title
         <input
           value={title}
           onChange={(event) => setTitle(event.target.value)}
-          className="mt-2 w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 text-sm normal-case tracking-normal text-cream"
+          className="field mt-2 normal-case tracking-normal"
         />
       </label>
-      <label className="block text-xs uppercase tracking-[0.16em] text-muted">
+      <label className="block text-xs uppercase tracking-[0.12em] text-muted">
         Transcript
         <textarea
           required
@@ -53,7 +53,7 @@ export function UploadForm() {
           onChange={(event) => setTranscript(event.target.value)}
           rows={16}
           placeholder="Speaker: July approval rate was 47%."
-          className="mt-2 w-full rounded-2xl border border-line bg-ink-2 px-4 py-3 font-mono text-sm normal-case tracking-normal text-cream outline-none"
+          className="field mt-2 font-mono normal-case tracking-normal"
         />
       </label>
       <div className="flex flex-wrap gap-3">
@@ -63,14 +63,14 @@ export function UploadForm() {
             setTitle("Monthly Business Review excerpt");
             setTranscript(demo);
           }}
-          className="rounded-full border border-line px-4 py-2 text-sm text-cream"
+          className="btn-secondary"
         >
           Load demo excerpt
         </button>
         <button
           type="submit"
           disabled={pending}
-          className="rounded-full bg-signal px-5 py-2.5 text-sm font-medium text-ink disabled:opacity-60"
+          className="btn-primary"
         >
           {pending ? "Analysing…" : "Analyse transcript"}
         </button>

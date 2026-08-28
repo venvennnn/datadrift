@@ -21,8 +21,8 @@ export default function OverviewPage() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <p className="text-xs uppercase tracking-[0.22em] text-signal">Organisational intelligence</p>
-      <h1 className="serif mt-3 max-w-3xl text-4xl leading-tight text-cream md:text-5xl">
+      <p className="text-xs uppercase tracking-[0.12em] text-signal">Organisational intelligence</p>
+      <h1 className="serif mt-3 max-w-3xl text-3xl leading-tight text-cream md:text-4xl">
         Your database has one version of the truth. This checks how many versions exist in the organisation.
       </h1>
       <p className="mt-5 max-w-2xl text-base leading-7 text-muted">
@@ -39,7 +39,7 @@ export default function OverviewPage() {
       {hero && (
         <section className="panel mt-10 p-6 md:p-8">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="text-xs uppercase tracking-[0.18em] text-warn">MVP demonstration</p>
+            <p className="text-xs uppercase tracking-[0.12em] text-warn">MVP demonstration</p>
             <SeverityBadge severity={hero.severity} />
             {hero.driftTypes.map((type) => (
               <DriftBadge key={type} type={type} />
@@ -57,7 +57,7 @@ export default function OverviewPage() {
           </div>
           <Link
             href={`/inbox/${hero.id}`}
-            className="mt-6 inline-flex items-center gap-2 text-sm text-signal hover:text-cream"
+            className="mt-6 inline-flex items-center gap-2 text-sm text-cream underline-offset-4 hover:underline"
           >
             Open the root-cause finding <ArrowRight size={16} />
           </Link>
@@ -79,7 +79,7 @@ export default function OverviewPage() {
                 <Link
                   key={finding.id}
                   href={`/inbox/${finding.id}`}
-                  className="block rounded-2xl border border-line bg-ink-2/50 p-4 hover:border-signal/30"
+                  className="block rounded-lg border border-line bg-white p-4 hover:bg-ink-2"
                 >
                   <div className="flex items-center justify-between gap-3">
                     <div className="text-sm text-cream">{metric?.canonicalName ?? "Unmapped claim"}</div>
@@ -112,7 +112,7 @@ export default function OverviewPage() {
               <Link
                 key={conversation.id}
                 href={`/conversations/${conversation.id}`}
-                className="block rounded-2xl border border-line bg-ink-2/50 p-4 hover:border-signal/30"
+                className="block rounded-lg border border-line bg-white p-4 hover:bg-ink-2"
               >
                 <div className="flex items-center justify-between gap-3">
                   <div className="text-sm text-cream">{conversation.title}</div>
@@ -136,7 +136,7 @@ export default function OverviewPage() {
 function Stat({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <div className="panel p-5">
-      <div className="text-xs uppercase tracking-[0.16em] text-muted">{label}</div>
+      <div className="text-xs uppercase tracking-[0.12em] text-muted">{label}</div>
       <div className="serif mt-3 text-4xl text-cream">{value}</div>
       <div className="mt-2 text-xs text-muted">{hint}</div>
     </div>
@@ -145,8 +145,8 @@ function Stat({ label, value, hint }: { label: string; value: string; hint: stri
 
 function ClaimCard({ team, value, note }: { team: string; value: string; note: string }) {
   return (
-    <div className="rounded-2xl border border-line bg-ink-2/70 p-4">
-      <div className="text-xs uppercase tracking-[0.16em] text-muted">{team}</div>
+    <div className="rounded-lg border border-line bg-ink-2 p-4">
+      <div className="text-xs uppercase tracking-[0.12em] text-muted">{team}</div>
       <div className="serif mt-2 text-3xl">{value}</div>
       <div className="mt-2 text-xs leading-5 text-muted">{note}</div>
     </div>
