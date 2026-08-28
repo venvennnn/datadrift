@@ -1,5 +1,6 @@
 import { conversationSeeds, monthlyReviewTranscript } from "../data/transcripts";
 import { processConversation } from "./process";
+import { verifySlackQuestion } from "./slack";
 import type { Conversation } from "../types";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -71,5 +72,13 @@ assert(
 const cluster = result.findings.find((finding) => finding.claimIds.length > 1 && finding.metricId === "approval_rate");
 assert(cluster, "expected a cross-team approval-rate finding");
 assert(cluster.driftTypes.includes("definition") || cluster.driftTypes.includes("temporal"), "cluster should mention definition or temporal drift");
+
+const slack = verifySlackQuestion(
+  "@DataDrift Is the 42% approval rate mentioned above correct for Malaysia in July?",
+  "Priya Shah: Malaysia's approval rate is 42% based on the weekly tracker.",
+);
+assert(slack.reply.includes("July 2026"), `slack reply missing July: ${slack.reply}`);
+assert(slack.reply.includes("38.1%"), `slack reply missing Malaysia canonical: ${slack.reply}`);
+assert(/not a reason to correct someone in public/i.test(slack.reply), "slack reply should avoid public correction");
 
 console.log("Scenario verification passed.");

@@ -12,9 +12,26 @@ export function verifySlackQuestion(question: string, thread = ""): SlackReply {
     conversationId: "slack_on_demand",
     startedAt: "2026-08-06T11:19:00+08:00",
   });
-  const claim =
-    extracted.claims.find((item) => item.quotedValue != null && item.metricId) ??
-    extracted.claims.find((item) => item.quotedValue != null);
+  const numeric = extracted.claims.filter(
+    (item) => item.quotedValue != null && item.metricId,
+  );
+  const claim = numeric.length
+    ? {
+        ...numeric[0],
+        ...numeric.reduce(
+          (merged, item) => ({
+            ...merged,
+            metricId: item.metricId ?? merged.metricId,
+            quotedValue: item.quotedValue ?? merged.quotedValue,
+            period: item.period ?? merged.period,
+            country: item.country ?? merged.country,
+            segment: item.segment ?? merged.segment,
+            unit: item.unit ?? merged.unit,
+          }),
+          numeric[0],
+        ),
+      }
+    : extracted.claims.find((item) => item.quotedValue != null);
 
   if (!claim?.metricId || claim.quotedValue == null) {
     return {
