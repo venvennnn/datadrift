@@ -1,21 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { DriftBadge, SeverityBadge } from "@/components/Badges";
 import { getMetric } from "@/lib/data/catalogue";
 import { getPerson } from "@/lib/data/people";
 import { canonicalObservation, queryTemplates } from "@/lib/data/trusted";
 import { formatDate, formatValue } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
-export default async function MetricPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
+export default function MetricPage() {
+  const rawId = useParams<{ id: string }>().id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
   const metric = getMetric(id);
   if (!metric) notFound();
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
   const versions = snapshot.metricVersions.filter((version) => version.metricId === id);
   const templates = queryTemplates.filter((template) => template.metricId === id);
   const latest = canonicalObservation(id, { period: "2026-07" });

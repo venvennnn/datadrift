@@ -1,8 +1,10 @@
+"use client";
+
 import { InboxClient } from "@/components/InboxClient";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
 export default function InboxPage() {
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
   const unresolved = snapshot.findings.filter((finding) => finding.status === "unresolved").length;
 
   return (

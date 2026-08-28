@@ -1,25 +1,41 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { ComparisonBadge, DriftBadge, SeverityBadge } from "@/components/Badges";
 import { getMetric } from "@/lib/data/catalogue";
 import { getPerson } from "@/lib/data/people";
 import { parseTurns } from "@/lib/engine/extract";
 import { formatDateTime, formatValue, sourceLabel } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
-export default async function ConversationReportPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const snapshot = getSnapshot();
-  const conversation = snapshot.conversations.find((item) => item.id === id);
+export default function ConversationReportPage() {
+  const rawId = useParams<{ id: string }>().id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
+  const snapshot = useSnapshot();
+  const conversation =
+    id === "latest"
+      ? snapshot.conversations.find((item) => item.id.startsWith("conv_upload_"))
+      : snapshot.conversations.find((item) => item.id === id);
+  if (id === "latest" && !conversation) {
+    return (
+      <div className="mx-auto max-w-5xl">
+        <p className="text-xs uppercase tracking-[0.12em] text-muted">Upload</p>
+        <h1 className="serif mt-3 text-4xl text-cream">No uploaded transcript yet</h1>
+        <p className="mt-3 text-sm text-muted">
+          Analyse a transcript first. Results stay in this browser session.
+        </p>
+        <Link href="/conversations/upload" className="btn-primary mt-6">
+          Upload a transcript
+        </Link>
+      </div>
+    );
+  }
   if (!conversation) notFound();
 
-  const claims = snapshot.claims.filter((claim) => claim.conversationId === id);
+  const claims = snapshot.claims.filter((claim) => claim.conversationId === conversation.id);
   const numeric = claims.filter((claim) => claim.quotedValue != null);
-  const findings = snapshot.findings.filter((finding) => finding.conversationId === id);
+  const findings = snapshot.findings.filter((finding) => finding.conversationId === conversation.id);
   const unresolved = findings.filter((finding) => finding.status === "unresolved");
   const verifications = snapshot.verifications.filter((item) =>
     claims.some((claim) => claim.id === item.claimId),

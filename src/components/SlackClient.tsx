@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { verifySlackQuestion } from "@/lib/engine/slack";
 import type { SlackReply } from "@/lib/types";
 
 const thread = `Priya Shah: Malaysia's approval rate is 42% based on the weekly tracker. Can we use that in the partner review?
@@ -13,15 +14,10 @@ export function SlackClient() {
   const [reply, setReply] = useState<SlackReply | null>(null);
   const [pending, setPending] = useState(false);
 
-  async function onSubmit(event: React.FormEvent) {
+  function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setPending(true);
-    const response = await fetch("/api/slack", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ question, thread }),
-    });
-    setReply((await response.json()) as SlackReply);
+    setReply(verifySlackQuestion(question, thread));
     setPending(false);
   }
 

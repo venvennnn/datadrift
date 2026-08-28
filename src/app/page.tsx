@@ -1,13 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { DriftBadge, SeverityBadge, StatusBadge } from "@/components/Badges";
 import { getPerson } from "@/lib/data/people";
 import { getMetric } from "@/lib/data/catalogue";
 import { formatDate } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
 export default function OverviewPage() {
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
   const unresolved = snapshot.findings.filter((finding) => finding.status === "unresolved");
   const numericalClaims = snapshot.claims.filter((claim) => claim.quotedValue != null);
   const aligned = snapshot.verifications.filter(

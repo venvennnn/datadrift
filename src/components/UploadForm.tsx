@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { processUploadedTranscript } from "@/lib/store";
 
 const demo = `[2026-08-05 09:01] Priya Shah (Sales): July approval rate was 47%. That's why we are comfortable raising the Malaysia target this quarter.
 
@@ -16,23 +17,17 @@ export function UploadForm() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function onSubmit(event: React.FormEvent) {
+  function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setPending(true);
     setError(null);
-    const response = await fetch("/api/transcripts", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ title, transcript }),
-    });
-    if (!response.ok) {
+    try {
+      processUploadedTranscript({ title, transcript });
+      router.push("/conversations/latest");
+    } catch {
       setError("Upload failed. Add at least one speaker turn with a metric claim.");
       setPending(false);
-      return;
     }
-    const payload = (await response.json()) as { id: string };
-    router.push(`/conversations/${payload.id}`);
-    router.refresh();
   }
 
   return (

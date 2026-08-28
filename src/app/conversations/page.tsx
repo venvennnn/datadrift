@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { formatDate, sourceLabel } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
 export default function ConversationsPage() {
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
 
   return (
     <div className="mx-auto max-w-5xl">

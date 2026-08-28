@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { getMetric } from "@/lib/data/catalogue";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
 export default function DriftMapPage() {
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
   const findings = snapshot.findings.filter(
     (finding) => finding.status === "unresolved" && finding.teamsInvolved.length >= 2,
   );

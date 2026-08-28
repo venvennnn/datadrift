@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { answerQuestion } from "@/lib/engine/ask";
 import type { AskAnswer } from "@/lib/types";
 
 const suggestions = [
@@ -18,15 +19,9 @@ export function AskClient() {
   const [answer, setAnswer] = useState<AskAnswer | null>(null);
   const [pending, setPending] = useState(false);
 
-  async function ask(next: string) {
+  function ask(next: string) {
     setPending(true);
-    const response = await fetch("/api/ask", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ question: next }),
-    });
-    const payload = (await response.json()) as AskAnswer;
-    setAnswer(payload);
+    setAnswer(answerQuestion(next));
     setPending(false);
   }
 

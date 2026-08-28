@@ -1,11 +1,13 @@
+"use client";
+
 import Link from "next/link";
 import { getPerson } from "@/lib/data/people";
 import { canonicalObservation } from "@/lib/data/trusted";
 import { formatValue } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
 export default function MetricsPage() {
-  const snapshot = getSnapshot();
+  const snapshot = useSnapshot();
 
   return (
     <div className="mx-auto max-w-5xl">

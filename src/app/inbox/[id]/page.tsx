@@ -1,19 +1,18 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { ComparisonBadge, DriftBadge, SeverityBadge, StatusBadge } from "@/components/Badges";
 import { ResolveForm } from "@/components/ResolveForm";
 import { getMetric } from "@/lib/data/catalogue";
 import { getPerson } from "@/lib/data/people";
 import { barrierLabel, formatDateTime, formatDifference, formatPeriod, formatValue } from "@/lib/format";
-import { getSnapshot } from "@/lib/store";
+import { useSnapshot } from "@/lib/use-snapshot";
 
-export default async function FindingPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
-  const { id } = await params;
-  const snapshot = getSnapshot();
+export default function FindingPage() {
+  const rawId = useParams<{ id: string }>().id;
+  const id = Array.isArray(rawId) ? rawId[0] : rawId;
+  const snapshot = useSnapshot();
   const finding = snapshot.findings.find((item) => item.id === id);
   if (!finding) notFound();
 

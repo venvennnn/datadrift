@@ -29,13 +29,13 @@ function frequencyForMetric(metricId: string | null, allClaims: ExtractedClaim[]
 export function processConversation(
   conversation: Conversation,
   extraClaims: ExtractedClaim[] = [],
+  verifiedAt = "2026-08-06T12:00:00.000Z",
 ): ProcessResult {
   const extracted = extractClaims(conversation.transcript, {
     conversationId: conversation.id,
     startedAt: conversation.startedAt,
   });
   const claims = extracted.claims;
-  const verifiedAt = new Date().toISOString();
   const verifications = claims
     .filter((claim) => claim.quotedValue != null || claim.kind === "definition")
     .map((claim) => compareClaim(claim, verifiedAt));

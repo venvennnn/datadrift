@@ -22,6 +22,31 @@ The detector reproduces each figure:
 
 After the T+2 freeze, the reproducible canonical value is **39.4%**.
 
+## GitHub Pages demo
+
+The app is a static export, so it can be hosted on GitHub Pages at:
+
+**https://venvennnn.github.io/datadrift/**
+
+GitHub Pages cannot run a Node server, so claim extraction, Ask, Slack verification, upload, and resolution all run in the browser against the seeded catalogue.
+
+### Enable Pages (once)
+
+1. In the repo: **Settings → Pages**
+2. Set **Source** to **GitHub Actions**
+3. Merge to `main` or run the **Deploy demo to GitHub Pages** workflow
+
+A workflow at `.github/workflows/pages.yml` builds `out/` with `basePath=/datadrift` and publishes it.
+
+Local static preview:
+
+```bash
+GITHUB_PAGES=true npm run build
+npx serve out
+```
+
+Without `GITHUB_PAGES`, `npm run build` still writes a static `out/` folder rooted at `/`.
+
 ## Run locally
 
 ```bash

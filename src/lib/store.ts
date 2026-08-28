@@ -13,6 +13,8 @@ import type {
   Verification,
 } from "@/lib/types";
 
+export const SEED_VERIFIED_AT = "2026-08-06T12:00:00.000Z";
+
 interface MemoryStore {
   conversations: Conversation[];
   claims: ExtractedClaim[];
@@ -25,6 +27,9 @@ interface MemoryStore {
 const globalForStore = globalThis as typeof globalThis & {
   __dataDriftStore?: MemoryStore;
 };
+
+const listeners = new Set<() => void>();
+let cachedSnapshot: AppSnapshot | null = null;
 
 function emptyStore(): MemoryStore {
   return {
@@ -44,6 +49,16 @@ function getMemory(): MemoryStore {
   return globalForStore.__dataDriftStore;
 }
 
+function notify() {
+  cachedSnapshot = null;
+  listeners.forEach((listener) => listener());
+}
+
+export function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
 function seedIfNeeded() {
   const memory = getMemory();
   if (memory.seeded) return;
@@ -52,12 +67,18 @@ function seedIfNeeded() {
       ...seed,
       processingStatus: "pending",
     };
-    ingestProcessed(processConversation(conversation, memory.claims));
+    ingestProcessed(
+      processConversation(conversation, memory.claims, SEED_VERIFIED_AT),
+      false,
+    );
   }
   memory.seeded = true;
 }
 
-function ingestProcessed(result: ReturnType<typeof processConversation>) {
+function ingestProcessed(
+  result: ReturnType<typeof processConversation>,
+  shouldNotify = true,
+) {
   const memory = getMemory();
   memory.conversations = [
     result.conversation,
@@ -77,10 +98,10 @@ function ingestProcessed(result: ReturnType<typeof processConversation>) {
     ...memory.findings.filter((item) => item.conversationId !== result.conversation.id),
     ...result.findings,
   ];
+  if (shouldNotify) notify();
 }
 
-export function getSnapshot(): AppSnapshot {
-  seedIfNeeded();
+function buildSnapshot(): AppSnapshot {
   const memory = getMemory();
   return {
     people,
@@ -95,6 +116,12 @@ export function getSnapshot(): AppSnapshot {
     findings: [...memory.findings].sort((a, b) => b.severityScore - a.severityScore),
     resolutions: memory.resolutions,
   };
+}
+
+export function getSnapshot(): AppSnapshot {
+  seedIfNeeded();
+  cachedSnapshot ??= buildSnapshot();
+  return cachedSnapshot;
 }
 
 export function getFinding(id: string): Finding | undefined {
@@ -155,23 +182,13 @@ export function resolveFinding(input: {
   };
   finding.status = input.resolutionType;
   memory.resolutions.unshift(resolution);
+  notify();
   return resolution;
-}
-
-export function claimsForConversation(id: string): ExtractedClaim[] {
-  return getSnapshot().claims.filter((claim) => claim.conversationId === id);
-}
-
-export function findingsForConversation(id: string): Finding[] {
-  return getSnapshot().findings.filter((finding) => finding.conversationId === id);
-}
-
-export function verificationsForClaimIds(ids: string[]): Verification[] {
-  const set = new Set(ids);
-  return getSnapshot().verifications.filter((item) => set.has(item.claimId));
 }
 
 export function resetStore() {
   globalForStore.__dataDriftStore = emptyStore();
+  cachedSnapshot = null;
   seedIfNeeded();
+  notify();
 }

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { resolveFinding } from "@/lib/store";
 import type { FindingStatus } from "@/lib/types";
 
 const options: FindingStatus[] = [
@@ -16,29 +16,27 @@ const options: FindingStatus[] = [
 ];
 
 export function ResolveForm({ findingId }: { findingId: string }) {
-  const router = useRouter();
   const [resolutionType, setResolutionType] = useState<FindingStatus>("confirmed_drift");
   const [comment, setComment] = useState("");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function onSubmit(event: React.FormEvent) {
+  function onSubmit(event: React.FormEvent) {
     event.preventDefault();
     setPending(true);
     setError(null);
-    const response = await fetch(`/api/findings/${findingId}/resolve`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ resolutionType, comment, reviewerId: "noura" }),
-    });
-    if (!response.ok) {
+    try {
+      resolveFinding({
+        findingId,
+        resolutionType,
+        comment,
+        reviewerId: "noura",
+      });
+      setComment("");
+    } catch {
       setError("Could not record the resolution.");
-      setPending(false);
-      return;
     }
-    setComment("");
     setPending(false);
-    router.refresh();
   }
 
   return (

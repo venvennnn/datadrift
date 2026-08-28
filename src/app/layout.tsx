@@ -24,8 +24,6 @@ export const metadata: Metadata = {
   description: "Catch metric misalignment before it becomes a business decision.",
 };
 
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
